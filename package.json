@@ -1,0 +1,18 @@
+{
+  "name": "ExpressBackEnd",
+  "version": "1.0.0",
+  "description": "### About This is the Express.js server set up with MongoDB on the back end for my FinancialSense front-end webpage.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.16",
+    "nodemon": "^2.0.4"
+  }
+}
