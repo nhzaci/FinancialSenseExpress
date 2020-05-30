@@ -1,10 +1,19 @@
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
-    category: { type: String, required: true }, //shopping, food, etc
-    type: { type: String, required: true }, //expenses OR income
-    money: { type: Number, required: true },
+    category: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    money: {
+        type: Number,
+        required: true
+    },
     date: { type: Date, default: Date.now },
     note: { type: String, default: "Not set" }
 });

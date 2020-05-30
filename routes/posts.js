@@ -4,11 +4,13 @@ const Post = require('../models/Post');
 
 // GET all
 router.get('/', async (req, res) => {
+    console.log("GET @ " + req.baseUrl);
     try {
-        const post = await Post.find().sort({ date: -1 });
-        res.status(200).json(post);
+        const post = await Post.find({});
+        res.status(200).send(post);
     } catch (error) {
-        res.status(500).json({ message: error });
+        console.log("Error 500 " + error);
+        res.status(500).send(error);
     }
 });
 
@@ -20,9 +22,9 @@ router.post('/', async (req, res) => {
         money: req.body.money,
         note: req.body.note
     });
+    const savedPost = await post.save();
 
     try {
-        const savedPost = await post.save();
         res.status(200).json(savedPost);
     } catch (error) {
         res.status(500).json({ message: error });
@@ -35,6 +37,7 @@ router.get('/:postId', async (req, res) => {
         const post = await Post.findById(req.params.postId);
         res.status(200).json(post);
     } catch (error) {
+        console.log("Error 500 " + error);
         res.status(500).json({ message: error });
     }
 })
@@ -42,7 +45,6 @@ router.get('/:postId', async (req, res) => {
 // PUT specific post
 router.put('/:postId', async (req, res) => {
     const post = new Post({
-        _id: req.body.id,
         category: req.body.category,
         type: req.body.type,
         money: req.body.money,
@@ -51,12 +53,13 @@ router.put('/:postId', async (req, res) => {
 
     try {
         const savedPost = await Post.update(
-            { _id: req.body.id },
+            { _id: req.params.postId },
             post,
-            { upsert: false }
+            { upsert: true }
         );
         res.status(200).json(savedPost);
     } catch (error) {
+        console.log("Error 500 " + error);
         res.status(500).json({ message: error });
     }
 })
@@ -67,6 +70,7 @@ router.delete('/:postId', async (req, res) => {
         const post = await Post.remove({ _id: req.params.postId });
         res.status(200).json(post);
     } catch (error) {
+        console.log("Error 500 " + error);
         res.status(500).json({ message: error });
     }
 })
