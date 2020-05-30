@@ -6,7 +6,7 @@ const Post = require('../models/Post');
 router.get('/', async (req, res) => {
     console.log("GET @ " + req.baseUrl);
     try {
-        const post = await Post.find({});
+        const post = await Post.find().sort({ date: -1 });
         res.status(200).send(post);
     } catch (error) {
         console.log("Error 500 " + error);
@@ -16,18 +16,13 @@ router.get('/', async (req, res) => {
 
 // POST new
 router.post('/', async (req, res) => {
-    const post = new Post({
-        category: req.body.category,
-        type: req.body.type,
-        money: req.body.money,
-        note: req.body.note
-    });
-    const savedPost = await post.save();
+        const post = new Post(req.body);
 
     try {
+        const savedPost = await post.save();
         res.status(200).json(savedPost);
     } catch (error) {
-        res.status(500).json({ message: error });
+        res.status(500).json(error);
     }
 })
 
@@ -42,22 +37,16 @@ router.get('/:postId', async (req, res) => {
     }
 })
 
-// PUT specific post
+// PUT specific post -- post updating
 router.put('/:postId', async (req, res) => {
-    const post = new Post({
-        category: req.body.category,
-        type: req.body.type,
-        money: req.body.money,
-        note: req.body.note
-    });
-
     try {
-        const savedPost = await Post.update(
-            { _id: req.params.postId },
-            post,
-            { upsert: true }
-        );
-        res.status(200).json(savedPost);
+        const post = await Post.findById(req.params.postId);
+        post.category = req.body.category;
+        post.type = req.body.type;
+        post.money= req.body.money;
+        post.note = req.body.note;
+        await post.save();
+        res.status(200).json(post);
     } catch (error) {
         console.log("Error 500 " + error);
         res.status(500).json({ message: error });
@@ -67,7 +56,7 @@ router.put('/:postId', async (req, res) => {
 //DELETE specific post
 router.delete('/:postId', async (req, res) => {
     try {
-        const post = await Post.remove({ _id: req.params.postId });
+        const post = await Post.deleteOne({ _id: req.params.postId });
         res.status(200).json(post);
     } catch (error) {
         console.log("Error 500 " + error);

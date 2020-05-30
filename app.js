@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 require('dotenv/config');
 
 //Import routers
-const postsRoute = require('./routes/posts.js');
+const postsRoute = require('./routes/posts');
+const monthYearRoute = require('./routes/months');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -20,6 +21,7 @@ mongoose.connect(process.env.DB_CONNECTION, {
 
 //Use routes
 app.use('/api/posts', postsRoute);
+app.use('/api/posts/date', monthYearRoute);
 
 //Safety net
 app.use((req, res, next) => {
