@@ -6,7 +6,7 @@ const Post = require('../models/Post');
 router.get('/', async (req, res, next) => {
     try {
         const post = await Post.find().sort({ date: -1 });
-        res.status(200).send(post);
+        res.status(200).json(post);
     } catch (error) {
         next(error);
     }
@@ -14,6 +14,7 @@ router.get('/', async (req, res, next) => {
 
 // POST new
 router.post('/', async (req, res, next) => {
+    console.log(req.body);
     const post = new Post(req.body);
     try {
         const savedPost = await post.save();

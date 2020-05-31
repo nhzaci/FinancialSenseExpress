@@ -6,7 +6,7 @@ require('dotenv/config');
 //Import routers
 const postsRoute = require('./routes/posts');
 const monthYearRoute = require('./routes/months');
-const amountRoute = require('./routes/amount');
+const amountRoute = require('./routes/amounts');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -41,12 +41,13 @@ app.use('/api/posts/date', monthYearRoute);
 app.use('/api/posts/amount', amountRoute);
 
 //Safety net
-app.use((req, res, next) => {
-    res.status(404).send('Sorry cannot recognise ' + req.url);
+app.use((req, res) => {
+    console.log(`RESP 404 ${req.baseUrl}${req.url} is not recognised`);
+    res.status(404).send(`Sorry, ${req.baseUrl}${req.url} is not recognised`);
 })
 
 //Error handling mw
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
     console.log('RESP 500 ' + err);
     res.status(500).json({ message: err.message });
 })
