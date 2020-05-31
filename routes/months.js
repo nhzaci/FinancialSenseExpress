@@ -24,9 +24,27 @@ router.get('/:year/:month', async (req, res) => {
 router.get('/getYears', async (req, res) => {
     try {
         const post = await Post.aggregate([
-            { "$sort": {
-                "date": -1
+            { "$project": {
+                "year": {"$year": "$date" },
             }},
+            {"$group": {
+                "_id": null,
+                "distinctYear": { "$addToSet": { 
+                    "year": "$year",
+                }}
+            }}
+        ]);
+        res.status(200).json(post[0].distinctYear);
+    } catch (error) {
+        console.log("Error 500 " + error);
+        res.status(500).send(error);
+    }
+})
+
+// GET months and years
+router.get('/getMonthYears', async (req, res) => {
+    try {
+        const post = await Post.aggregate([
             { "$project": {
                 "year": {"$year": "$date" },
                 "month": {"$month": "$date"}

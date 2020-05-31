@@ -6,6 +6,7 @@ require('dotenv/config');
 //Import routers
 const postsRoute = require('./routes/posts');
 const monthYearRoute = require('./routes/months');
+const amountRoute = require('./routes/amount');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -17,11 +18,21 @@ mongoose.connect(process.env.DB_CONNECTION, {
     useUnifiedTopology: true
 }, () => {
     console.log('Connected to Atlas, state: ' + mongoose.connection.readyState);
-});
+})
+
+//Allow CORS
+app.use((req, res, next) => {
+    res.set({
+        'Access-Control-Allow-Origin': 'http://localhost:8080',
+        'Access-Control-Allow-Headers': 'Content-Type'
+    });
+    next();
+})
 
 //Use routes
 app.use('/api/posts', postsRoute);
 app.use('/api/posts/date', monthYearRoute);
+app.use('/api/posts/amount', amountRoute);
 
 //Safety net
 app.use((req, res, next) => {
