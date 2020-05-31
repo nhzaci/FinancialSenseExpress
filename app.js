@@ -29,6 +29,12 @@ app.use((req, res, next) => {
     next();
 })
 
+//Logging
+app.use((req, res, next) => {
+    console.log(`${req.method} @ ${req.baseUrl}${req.url}`);
+    next();
+})
+
 //Use routes
 app.use('/api/posts', postsRoute);
 app.use('/api/posts/date', monthYearRoute);
@@ -41,6 +47,7 @@ app.use((req, res, next) => {
 
 //Error handling mw
 app.use((err, req, res, next) => {
+    console.log('RESP 500 ' + err);
     res.status(500).json({ message: err.message });
 })
 

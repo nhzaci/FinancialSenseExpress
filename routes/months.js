@@ -3,7 +3,7 @@ const router = express.Router();
 const Post = require('../models/Post');
 
 // GET year and month transactions
-router.get('/:year/:month', async (req, res) => {
+router.get('/:year/:month', async (req, res, next) => {
 
     //Specify start and end-dates to find
     let start = new Date(req.params.year, req.params.month - 1, 1);
@@ -12,16 +12,15 @@ router.get('/:year/:month', async (req, res) => {
 
     //console.log("start: " + start + " end: " + end);
     try {
-        const post = await Post.find({ date: {$gte: start, $lte: end}});
+        const post = await Post.find({ date: {$gte: start, $lte: end} });
         res.status(200).send(post);
     } catch (error) {
-        console.log("Error 500 " + error);
-        res.status(500).send(error);
+        next(error);
     }
 });
 
 //GET all years
-router.get('/getYears', async (req, res) => {
+router.get('/getYears', async (req, res, next) => {
     try {
         const post = await Post.aggregate([
             { "$project": {
@@ -36,13 +35,12 @@ router.get('/getYears', async (req, res) => {
         ]);
         res.status(200).json(post[0].distinctYear);
     } catch (error) {
-        console.log("Error 500 " + error);
-        res.status(500).send(error);
+        next(error);
     }
 })
 
 // GET months and years
-router.get('/getMonthYears', async (req, res) => {
+router.get('/getMonthYears', async (req, res, next) => {
     try {
         const post = await Post.aggregate([
             { "$project": {
@@ -59,8 +57,7 @@ router.get('/getMonthYears', async (req, res) => {
         ]);
         res.status(200).json(post[0].distinctYear);
     } catch (error) {
-        console.log("Error 500 " + error);
-        res.status(500).send(error);
+        next(error);
     }
 })
 
