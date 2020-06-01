@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 //Use routes
 app.use('/api/posts', postsRoute);
 app.use('/api/posts/date', monthYearRoute);
-app.use('/api/posts/amount', amountRoute);
+app.use('/api/posts/sum', amountRoute);
 
 //Safety net
 app.use((req, res) => {

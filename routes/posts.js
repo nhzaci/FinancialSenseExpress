@@ -25,7 +25,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // GET specific post
-router.get('/:postId', async (req, res, next) => {
+router.get('/id/:postId', async (req, res, next) => {
     try {
         const post = await Post.findById(req.params.postId);
         res.status(200).json(post);
@@ -35,7 +35,7 @@ router.get('/:postId', async (req, res, next) => {
 })
 
 // PUT specific post -- post updating
-router.put('/:postId', async (req, res, next) => {
+router.put('/id/:postId', async (req, res, next) => {
     try {
         const post = await Post.findById(req.params.postId);
         post.category = req.body.category;
@@ -50,7 +50,7 @@ router.put('/:postId', async (req, res, next) => {
 })
 
 //DELETE specific post
-router.delete('/:postId', async (req, res, next) => {
+router.delete('/id/:postId', async (req, res, next) => {
     try {
         const post = await Post.deleteOne({ _id: req.params.postId });
         res.status(200).json(post);
