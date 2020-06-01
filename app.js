@@ -24,7 +24,8 @@ mongoose.connect(process.env.DB_CONNECTION, {
 app.use((req, res, next) => {
     res.set({
         'Access-Control-Allow-Origin': 'http://localhost:8080',
-        'Access-Control-Allow-Headers': 'Content-Type'
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE'
     });
     next();
 })

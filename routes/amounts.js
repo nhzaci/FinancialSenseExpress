@@ -4,10 +4,10 @@ const Post = require('../models/Post');
 
 //map function for balance
 const mapNumber = (x) => {
-if (x.type === "Expense") {
-    return - Number(x.money);
-} 
-return Number(x.money);
+    if (x.type === "Expense") {
+        return - Number(x.money);
+    } 
+    return Number(x.money);
 }
 
 // GET all-time transaction balance
