@@ -14,10 +14,15 @@ const mapNumber = (x) => {
 router.get('/balance', async (req, res, next) => {
     try {
         const post = await Post.find();
-        res.status(200).json(post
-            .map(mapNumber)
-            .reduce((x, y) => x + y)
-        );
+        //Reducing empty array causes errors, so for empty, just return empty
+        if (post.length === 0) {
+            res.status(200).json({});
+        } else {
+            res.status(200).json(post
+                .map(mapNumber)
+                .reduce((x, y) => x + y)
+            );
+        }
     } catch (error) {
         next(error);
     }
@@ -74,10 +79,15 @@ const mapExpense = x => {
 router.get('/expense', async (req, res, next) => {
     try {
         const post = await Post.find();
-        res.status(200).json(post
-            .map(mapExpense)
-            .reduce((x, y) => x + y)
-        );
+        //Reducing empty array causes errors, so for empty, just return empty
+        if (post.length === 0) {
+            res.status(200).json({});
+        } else {
+            res.status(200).json(post
+                .map(mapExpense)
+                .reduce((x, y) => x + y)
+            );
+        }
     } catch (error) {
         next(error);
     }
@@ -134,10 +144,15 @@ const mapIncome = x => {
 router.get('/income', async (req, res, next) => {
     try {
         const post = await Post.find();
-        res.status(200).json(post
-            .map(mapIncome)
-            .reduce((x, y) => x + y)
-        );
+        //Reducing empty array causes errors, so for empty, just return empty
+        if (post.length === 0) {
+            res.status(200).json({});
+        } else {
+            res.status(200).json(post
+                .map(mapIncome)
+                .reduce((x, y) => x + y)
+            );
+        }
     } catch (error) {
         next(error);
     }
