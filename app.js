@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 require('dotenv/config');
 
 //Import routers
-const postsRoute = require('./routes/posts');
-const monthYearRoute = require('./routes/months');
-const amountRoute = require('./routes/amounts');
+const postsRoute = require('./routes/api/posts/index.js');
+const monthYearRoute = require('./routes/api/posts/date.js');
+const amountRoute = require('./routes/api/posts/sum.js');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());

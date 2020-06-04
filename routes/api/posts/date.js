@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/Post');
+const Post = require('../../../models/Post');
 
 // GET year and month transactions
 router.get('/:year/:month', async (req, res, next) => {

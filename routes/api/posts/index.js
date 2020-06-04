@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/Post');
+const Post = require('../../../models/Post');
 
 // GET all
 router.get('/', async (req, res, next) => {
@@ -18,7 +18,7 @@ router.post('/', async (req, res, next) => {
     const post = new Post(req.body);
     try {
         const savedPost = await post.save();
-        res.status(200).json(savedPost);
+        res.status(201).json(savedPost);
     } catch (error) {
         next(error);
     }
