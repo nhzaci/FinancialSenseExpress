@@ -16,6 +16,8 @@ $ npm install
 $ npm run dev
 ```
 
+This API is intended for the front-end SPA, FinancialSense, which is accessible [here](https://github.com/nhzaci/FinancialSense).
+
 ### TODO:
 
 * Authentication system on the back-end
