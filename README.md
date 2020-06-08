@@ -1,4 +1,4 @@
-# FinancialSense
+FinancialSense
 
 ### About
 This is the Express.js server set up with MongoDB as the database for my FinancialSense front-end webpage.
@@ -24,7 +24,7 @@ $ touch .env
 $ vim .env
 ```
 
-```.env
+```bash
 # .env file
 DB_CONNECTION = <MongoDB Address Here>
 ```
