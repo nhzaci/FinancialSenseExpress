@@ -16,6 +16,19 @@ $ npm install
 $ npm run dev
 ```
 
+To run the server successfully, a DB connection has to be set up.
+
+```bash
+# bash terminal
+$ touch .env
+$ vim .env
+```
+
+```.env
+# .env file
+DB_CONNECTION = <MongoDB Address Here>
+```
+
 This API is intended for the front-end SPA, FinancialSense, which is accessible [here](https://github.com/nhzaci/FinancialSense).
 
 ### TODO:
