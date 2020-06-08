@@ -1,7 +1,7 @@
-FinancialSense
+# FinancialSense
 
 ### About
-This is the Express.js server set up with MongoDB as the database for my FinancialSense front-end webpage.
+This is the Express.js server set up with MongoDB as the database for my FinancialSense front-end SPA, which is a financial tracking application.
 
 ### Usage
 For full API documentation, kindly visit the [wiki](https://github.com/nhzaci/FinancialSenseExpress/wiki).
